@@ -1,0 +1,28 @@
+﻿<Page
+    x:Class="WaitAndEat.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WaitAndEat"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,12,28">
+            <TextBlock x:Uid="AppName" FontSize="40" />
+            <TextBlock x:Uid="AppDescription" FontSize="20" TextWrapping="WrapWholeWords" Margin="0,10" />
+            
+            <!-- login controls -->
+            <TextBlock x:Uid="LoginTitle" FontSize="30" />
+            <TextBox x:Uid="UsernameField" Name="UsernameField" InputScope="EmailSmtpAddress" />
+            <PasswordBox x:Uid="PasswordField" Name="PasswordField" />
+            <TextBlock Name="LoginError" />
+            <Button x:Uid="LoginButton" Click="Login_Click" />
+
+            <!-- register -->
+            <TextBlock x:Uid="RegisterDescription" FontSize="20" TextWrapping="WrapWholeWords" Margin="0,10" />
+            <Button x:Uid="RegisterNewButton" Click="Register_Click" />
+        </StackPanel>
+    </Grid>
+</Page>

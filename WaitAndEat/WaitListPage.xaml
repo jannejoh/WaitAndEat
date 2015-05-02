@@ -1,0 +1,101 @@
+﻿<Page
+    x:Class="WaitAndEat.WaitListPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WaitAndEat"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+
+        <!-- party item template -->
+        <DataTemplate x:Key="PartyTemplate">
+            <Border BorderThickness="0,2,0,0" BorderBrush="{ThemeResource PhoneForegroundBrush}">
+                <StackPanel Margin="0,10" Holding="ShowPartyFlyoutMenu">
+                    <!-- flyout menu for deleting parties -->
+                    <FlyoutBase.AttachedFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem x:Uid="MenuFlyoutItemDelete" DataContext="{Binding}" Click="Remove_Party_Click" />
+                        </MenuFlyout>
+                    </FlyoutBase.AttachedFlyout>
+
+                    <!-- party item fields -->
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding name}" FontSize="30"/>
+                        <TextBlock x:Uid="PartySizeOf" FontSize="30" Margin="6,0" />
+                        <TextBlock Text="{Binding size}" FontSize="30"/>
+                    </StackPanel>
+                    <TextBlock Text="{Binding phone}" FontSize="20" Grid.Row="1" />
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock x:Uid="PartyNotified" FontSize="20" />
+                        <TextBlock Text="{Binding notified}" FontSize="20" Margin="6,0,0,0" />
+                    </StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <CheckBox IsChecked="{Binding done}" Click="Toggle_Party_Status" Grid.Column="0">
+                            <TextBlock x:Uid="DoneTitle" FontSize="30" Margin="0,-8,0,0" />
+                        </CheckBox>
+                        <Button x:Uid="SendSmsButton" Click="Send_Sms_Click" HorizontalAlignment="Right" Grid.Column="1" />
+                    </Grid>
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+    </Page.Resources>
+    
+    <ScrollViewer>
+        <StackPanel Margin="12,17,12,28">
+
+            <!-- add party controls -->
+            <TextBlock x:Uid="AddPartyTitle" FontSize="30" />
+            <TextBox x:Uid="PartyNameField" Name="PartyNameField" />
+            <TextBox x:Uid="PartyPhoneField" Name="PartyPhoneField" InputScope="TelephoneNumber" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Uid="PartySize" FontSize="26" Grid.Column="0" Grid.Row="0" Margin="0, 12, 0, 0" />
+                <ComboBox x:Uid="PartySizeField" Name="PartySizeField" Grid.Column="1" Grid.Row="0" Margin="14, 0, 0, 0">
+                    <x:String>1</x:String>
+                    <x:String>2</x:String>
+                    <x:String>3</x:String>
+                    <x:String>4</x:String>
+                    <x:String>5</x:String>
+                    <x:String>6</x:String>
+                    <x:String>7</x:String>
+                    <x:String>8</x:String>
+                </ComboBox>
+            </Grid>
+            <Button x:Uid="AddPartyButton" Click="Add_Party_Click" />
+
+            <!-- party list -->
+            <TextBlock x:Uid="PartyListTitle" FontSize="30" Margin="0,16,0,8" />
+            <ListView Name="WaitingList" ItemsSource="{Binding WaitingList}" ItemTemplate="{StaticResource PartyTemplate}" >
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+            </ListView>
+        </StackPanel>
+    </ScrollViewer>
+
+    <!-- bottom bar -->
+    <Page.BottomAppBar>
+        <CommandBar Name="BottomBar">
+            <CommandBar.PrimaryCommands>
+                <AppBarButton x:Uid="RefreshAction" Click="Refresh_Click" Icon="Refresh"/>
+            </CommandBar.PrimaryCommands>
+            <CommandBar.SecondaryCommands>
+                <AppBarButton x:Uid="LogoutAction" Click="Logout_Click"/>
+                <AppBarButton x:Uid="AboutAction" Click="About_Click"/>
+            </CommandBar.SecondaryCommands>
+        </CommandBar>
+    </Page.BottomAppBar>
+
+</Page>
